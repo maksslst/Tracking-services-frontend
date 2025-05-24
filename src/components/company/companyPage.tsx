@@ -7,6 +7,7 @@ import Sidebar from '../sidebar/sidebar';
 import { UserDto } from '../../api/models/user';
 import { Roles } from '../../api/enums/role';
 import { CompanyDto } from '../../api/models/company';
+import { useTheme } from '@mui/material/styles';
 
 export default function CompanyPage() {
   const company: CompanyDto = {
@@ -47,6 +48,8 @@ export default function CompanyPage() {
     },
   ];
 
+  const theme = useTheme();
+
   const columns: GridColDef[] = [
     { field: 'id', headerName: 'Id', width: 70 },
     { field: 'username', headerName: 'Username', width: 150 },
@@ -77,8 +80,11 @@ export default function CompanyPage() {
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
-      <Box sx={{ flexGrow: 1, p: 2, bgcolor: '#F5F5F5' }}>
-        <Typography variant='h5' sx={{ mb: 2, color: '#000000' }}>
+      <Box sx={{ flexGrow: 1, p: 2, bgcolor: theme.palette.background.paper }}>
+        <Typography
+          variant='h5'
+          sx={{ mb: 2, color: theme.palette.text.primary }}
+        >
           {company.companyName}
         </Typography>
         <Box sx={{ height: 400, width: '100%' }}>

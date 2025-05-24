@@ -9,6 +9,7 @@ import {
   Stack,
   IconButton,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -61,17 +62,26 @@ export default function TaskPage() {
     return;
   };
 
+  const theme = useTheme();
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
-      <Box sx={{ flexGrow: 1, p: 2, bgcolor: '#F5F5F5' }}>
-        <Typography variant='h5' sx={{ mb: 2, color: '#000000' }}>
+      <Box sx={{ flexGrow: 1, p: 2, bgcolor: theme.palette.background.paper }}>
+        <Typography
+          variant='h5'
+          sx={{ mb: 2, color: theme.palette.text.primary }}
+        >
           Tasks
         </Typography>
         <Box sx={{ mb: 4 }}>
           <Button
             variant='outlined'
-            sx={{ mb: 2, borderColor: '#757575', color: '#000000' }}
+            sx={{
+              mb: 2,
+              borderColor: theme.palette.text.secondary,
+              color: theme.palette.text.primary,
+            }}
           >
             Add task
           </Button>
@@ -115,7 +125,11 @@ export default function TaskPage() {
             <Button
               variant='outlined'
               onClick={handleAddTask}
-              sx={{ mt: 1, borderColor: '#757575', color: '#000000' }}
+              sx={{
+                mt: 1,
+                borderColor: theme.palette.text.secondary,
+                color: theme.palette.text.primary,
+              }}
             >
               Add task
             </Button>

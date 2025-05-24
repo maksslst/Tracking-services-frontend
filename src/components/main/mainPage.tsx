@@ -8,6 +8,7 @@ import {
   Stack,
 } from '@mui/material';
 import Sidebar from '../sidebar/sidebar';
+import { useTheme } from '@mui/material/styles';
 
 export default function MainPage() {
   const overviewData = [
@@ -17,13 +18,15 @@ export default function MainPage() {
     { title: 'Users', count: 10, color: '#FF9800' },
   ];
 
+  const theme = useTheme();
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
-      <Box sx={{ flexGrow: 1, p: 2, bgcolor: '#F5F5F5' }}>
+      <Box sx={{ flexGrow: 1, p: 2, bgcolor: theme.palette.background.paper }}>
         <Typography
           variant='h4'
-          sx={{ mb: 4, color: '#000000', fontWeight: 'bold' }}
+          sx={{ mb: 4, color: theme.palette.text.primary, fontWeight: 'bold' }}
         >
           Welcome to Tracking Services
         </Typography>

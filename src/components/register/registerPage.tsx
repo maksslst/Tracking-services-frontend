@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import { Box, Typography, TextField, Button } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 export default function RegisterPage() {
   const navigate = useNavigate();
@@ -8,6 +9,8 @@ export default function RegisterPage() {
   const handleSignInClick = () => {
     navigate('/login');
   };
+
+  const theme = useTheme();
 
   return (
     <Box
@@ -23,7 +26,7 @@ export default function RegisterPage() {
         variant='h4'
         align='center'
         gutterBottom
-        style={{ color: '#000000', fontWeight: 'bold' }}
+        style={{ color: theme.palette.text.primary, fontWeight: 'bold' }}
       >
         Tracking Services
       </Typography>
@@ -81,7 +84,10 @@ export default function RegisterPage() {
       <Button fullWidth variant='outlined' color='secondary' size='medium'>
         Register
       </Button>
-      <Typography variant='body2' sx={{ color: 'text.secondary', mt: 1 }}>
+      <Typography
+        variant='body2'
+        sx={{ color: theme.palette.text.secondary, mt: 1 }}
+      >
         Already have an account?{' '}
         <Link
           to='/login'

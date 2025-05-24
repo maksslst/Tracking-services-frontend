@@ -9,9 +9,11 @@ import {
   ToggleButton,
   ToggleButtonGroup,
 } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import Sidebar from '../sidebar/sidebar';
 import { UserDto } from '../../api/models/user';
 import { Roles } from '../../api/enums/role';
+import { useTheme } from '@mui/material/styles';
 
 export default function AccountPage() {
   const mockUser: UserDto = {
@@ -28,6 +30,9 @@ export default function AccountPage() {
   const [avatarType, setAvatarType] = React.useState<'initials' | 'image'>(
     'initials'
   );
+
+  const navigate = useNavigate();
+  const theme = useTheme();
 
   const getInitials = () => {
     const firstInitial = mockUser.firstName?.charAt(0) || '';
@@ -48,11 +53,18 @@ export default function AccountPage() {
     return;
   };
 
+  const handleLogout = () => {
+    navigate('/login');
+  };
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
-      <Box sx={{ flexGrow: 1, p: 2, bgcolor: '#F5F5F5' }}>
-        <Typography variant='h5' sx={{ mb: 2, color: '#000000' }}>
+      <Box sx={{ flexGrow: 1, p: 2, bgcolor: theme.palette.background.paper }}>
+        <Typography
+          variant='h5'
+          sx={{ mb: 2, color: theme.palette.text.primary }}
+        >
           Account
         </Typography>
         <Box
@@ -63,19 +75,37 @@ export default function AccountPage() {
             mb: 4,
           }}
         >
-          <Typography variant='h6' sx={{ color: '#000000' }}>
+          <Typography variant='h6' sx={{ color: theme.palette.text.primary }}>
             {mockUser.username}
           </Typography>
-          <Typography variant='body1' sx={{ color: '#757575' }}>
-            {mockUser.role}
-          </Typography>
+          <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+            <Typography
+              variant='body1'
+              sx={{ color: theme.palette.text.secondary }}
+            >
+              {mockUser.role}
+            </Typography>
+            <Button
+              variant='outlined'
+              onClick={handleLogout}
+              sx={{
+                borderColor: theme.palette.text.secondary,
+                color: theme.palette.text.primary,
+              }}
+            >
+              Logout
+            </Button>
+          </Box>
         </Box>
-        <Typography variant='body2' sx={{ color: '#757575', mb: 2 }}>
+        <Typography
+          variant='body2'
+          sx={{ color: theme.palette.text.secondary, mb: 2 }}
+        >
           Avatar
         </Typography>
         <Typography
           variant='caption'
-          sx={{ color: '#757575', mb: 2, display: 'block' }}
+          sx={{ color: theme.palette.text.secondary, mb: 2, display: 'block' }}
         >
           Provide your initials or upload an image to represent yourself
         </Typography>
@@ -110,7 +140,7 @@ export default function AccountPage() {
               value='image'
               sx={{
                 bgcolor: '#D3D3D3',
-                color: '#000000',
+                color: theme.palette.text.primary,
                 '&.Mui-selected': { bgcolor: '#B0B0B0' },
               }}
             >
@@ -118,12 +148,15 @@ export default function AccountPage() {
             </ToggleButton>
           </ToggleButtonGroup>
         </Box>
-        <Typography variant='h6' sx={{ color: '#000000', mb: 2 }}>
+        <Typography
+          variant='h6'
+          sx={{ color: theme.palette.text.primary, mb: 2 }}
+        >
           Personal information
         </Typography>
         <Typography
           variant='caption'
-          sx={{ color: '#757575', mb: 2, display: 'block' }}
+          sx={{ color: theme.palette.text.secondary, mb: 2, display: 'block' }}
         >
           Enter your details or change them
         </Typography>
@@ -157,12 +190,15 @@ export default function AccountPage() {
             fullWidth
           />
         </Stack>
-        <Typography variant='h6' sx={{ color: '#000000', mt: 4, mb: 2 }}>
+        <Typography
+          variant='h6'
+          sx={{ color: theme.palette.text.primary, mt: 4, mb: 2 }}
+        >
           Password
         </Typography>
         <Typography
           variant='caption'
-          sx={{ color: '#757575', mb: 2, display: 'block' }}
+          sx={{ color: theme.palette.text.secondary, mb: 2, display: 'block' }}
         >
           Protect your data with a strong password
         </Typography>
@@ -178,7 +214,11 @@ export default function AccountPage() {
         <Button
           variant='outlined'
           onClick={handleApply}
-          sx={{ mt: 2, borderColor: '#757575', color: '#000000' }}
+          sx={{
+            mt: 2,
+            borderColor: theme.palette.text.secondary,
+            color: theme.palette.text.primary,
+          }}
         >
           Apply
         </Button>

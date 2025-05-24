@@ -9,11 +9,12 @@ export const theme = createTheme({
       main: '#9c27b0', // Purple color for secondary
     },
     background: {
-      default: '#f4f4f4', // Default background color
+      default: '#FFFFFF', // Default background color
+      paper: '#F5F5F5',
     },
     text: {
-      primary: '#333333', // Text color
-      secondary: '#555555', // Secondary text color
+      primary: '#000000', // Text color
+      secondary: '#757575', // Secondary text color
     },
   },
   typography: {

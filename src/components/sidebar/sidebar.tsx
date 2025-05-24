@@ -6,9 +6,10 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
-  Toolbar,
   Typography,
 } from '@mui/material';
+import Link from '@mui/material/Link';
+import { useTheme } from '@mui/material/styles';
 import Collapse from '@mui/material/Collapse';
 import ApartmentIcon from '@mui/icons-material/Apartment';
 import MiscellaneousServicesIcon from '@mui/icons-material/MiscellaneousServices';
@@ -19,10 +20,13 @@ import ExpandMore from '@mui/icons-material/ExpandMore';
 import ExpandLess from '@mui/icons-material/ExpandLess';
 import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
 import { useNavigate } from 'react-router-dom';
+import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import MonitorHeartIcon from '@mui/icons-material/MonitorHeart';
 
 export default function Sidebar() {
   const [open, setOpen] = React.useState(true);
   const navigate = useNavigate();
+  const theme = useTheme();
 
   const handleClick = () => {
     setOpen(!open);
@@ -49,6 +53,14 @@ export default function Sidebar() {
     navigate('/userManagement');
   };
 
+  const handleProfileClick = () => {
+    navigate('/account');
+  };
+
+  const handleMonitoringSettingClick = () => {
+    navigate('/monitoringSetting');
+  };
+
   return (
     <Drawer
       variant='permanent'
@@ -59,39 +71,50 @@ export default function Sidebar() {
           width: 240,
           boxSizing: 'border-box',
           backgroundColor: '#100E3A',
-          color: '#FFFFFF',
+          color: theme.palette.background.default,
         },
       }}
     >
-      <Typography
-        variant='h5'
-        align='center'
-        gutterBottom
-        style={{ color: '#FFFFFF', fontWeight: 'bold' }}
-      >
-        Tracking Services
-      </Typography>
+      <Link href='/' underline='none'>
+        <Typography
+          variant='h5'
+          align='center'
+          gutterBottom
+          style={{
+            color: theme.palette.background.default,
+            fontWeight: 'bold',
+          }}
+        >
+          Tracking Services
+        </Typography>
+      </Link>
       <List>
+        <ListItemButton onClick={handleMonitoringSettingClick}>
+          <ListItemIcon sx={{ color: theme.palette.background.default }}>
+            <MonitorHeartIcon />
+          </ListItemIcon>
+          <ListItemText primary='Monitoring setting' />
+        </ListItemButton>
         <ListItemButton onClick={handleCompanyClick}>
-          <ListItemIcon sx={{ color: '#FFFFFF' }}>
+          <ListItemIcon sx={{ color: theme.palette.background.default }}>
             <ApartmentIcon />
           </ListItemIcon>
           <ListItemText primary='Company' />
         </ListItemButton>
         <ListItemButton onClick={handleServicesClick}>
-          <ListItemIcon sx={{ color: '#FFFFFF' }}>
+          <ListItemIcon sx={{ color: theme.palette.background.default }}>
             <MiscellaneousServicesIcon />
           </ListItemIcon>
-          <ListItemText primary='Services' />
+          <ListItemText primary='Resources' />
         </ListItemButton>
         <ListItemButton onClick={handleTasksClick}>
-          <ListItemIcon sx={{ color: '#FFFFFF' }}>
+          <ListItemIcon sx={{ color: theme.palette.background.default }}>
             <TaskIcon />
           </ListItemIcon>
           <ListItemText primary='Tasks' />
         </ListItemButton>
         <ListItemButton onClick={handleClick}>
-          <ListItemIcon sx={{ color: '#FFFFFF' }}>
+          <ListItemIcon sx={{ color: theme.palette.background.default }}>
             <AdminPanelSettingsIcon />
           </ListItemIcon>
           <ListItemText primary='Admin area' />
@@ -103,19 +126,25 @@ export default function Sidebar() {
               sx={{ pl: 4 }}
               onClick={handleCompanyManagementClick}
             >
-              <ListItemIcon sx={{ color: '#FFFFFF' }}>
+              <ListItemIcon sx={{ color: theme.palette.background.default }}>
                 <ManageAccountsIcon />
               </ListItemIcon>
               <ListItemText primary='Company management' />
             </ListItemButton>
             <ListItemButton sx={{ pl: 4 }} onClick={handleUserManagementClick}>
-              <ListItemIcon sx={{ color: '#FFFFFF' }}>
+              <ListItemIcon sx={{ color: theme.palette.background.default }}>
                 <SupervisedUserCircleIcon />
               </ListItemIcon>
               <ListItemText primary='User management' />
             </ListItemButton>
           </List>
         </Collapse>
+        <ListItemButton onClick={handleProfileClick}>
+          <ListItemIcon sx={{ color: theme.palette.background.default }}>
+            <AccountCircleIcon />
+          </ListItemIcon>
+          <ListItemText primary='Profile' />
+        </ListItemButton>
       </List>
     </Drawer>
   );

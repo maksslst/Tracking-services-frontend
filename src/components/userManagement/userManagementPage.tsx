@@ -9,6 +9,7 @@ import {
   Stack,
   IconButton,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Sidebar from '../sidebar/sidebar';
@@ -50,17 +51,26 @@ export default function UserManagementPage() {
     return;
   };
 
+  const theme = useTheme();
+
   return (
     <Box sx={{ display: 'flex', height: '100vh' }}>
       <Sidebar />
       <Box sx={{ flexGrow: 1, p: 2, bgcolor: '#F5F5F5' }}>
-        <Typography variant='h5' sx={{ mb: 2, color: '#000000' }}>
+        <Typography
+          variant='h5'
+          sx={{ mb: 2, color: theme.palette.text.primary }}
+        >
           User Management
         </Typography>
         <Box sx={{ mb: 4 }}>
           <Button
             variant='outlined'
-            sx={{ mb: 2, borderColor: '#757575', color: '#000000' }}
+            sx={{
+              mb: 2,
+              borderColor: theme.palette.text.secondary,
+              color: theme.palette.text.primary,
+            }}
           >
             Add user
           </Button>
@@ -117,7 +127,11 @@ export default function UserManagementPage() {
             <Button
               variant='outlined'
               onClick={handleAddUser}
-              sx={{ mt: 1, borderColor: '#757575', color: '#000000' }}
+              sx={{
+                mt: 1,
+                borderColor: theme.palette.text.secondary,
+                color: theme.palette.text.primary,
+              }}
             >
               Add user
             </Button>
@@ -126,7 +140,11 @@ export default function UserManagementPage() {
         <Box sx={{ mb: 2 }}>
           <Button
             variant='outlined'
-            sx={{ mb: 2, borderColor: '#757575', color: '#000000' }}
+            sx={{
+              mb: 2,
+              borderColor: theme.palette.text.secondary,
+              color: theme.palette.text.primary,
+            }}
           >
             View all users
           </Button>
