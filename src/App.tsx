@@ -12,28 +12,35 @@ import MonitoringPage from './components/monitoringSetting/monitoringSettingPage
 import ResourcePage from './components/resource/resourcePage';
 import AccountPage from './components/account/accountPage';
 import MainPage from './components/main/mainPage';
+import { Provider } from 'react-redux';
+import store from './store/store';
+import AuthProtected from './components/AuthProtected';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <Router>
-        <Routes>
-          <Route path='/' element={<MainPage />} />
-          <Route path='/login' element={<LoginPage />} />
-          <Route path='/register' element={<RegisterPage />} />
-          <Route path='/company' element={<CompanyPage />} />
-          <Route path='/tasks' element={<TasksPage />} />
-          <Route path='/userManagement' element={<UserManagementPage />} />
-          <Route
-            path='/companyManagement'
-            element={<CompanyManagementPage />}
-          />
-          <Route path='/monitoringSetting' element={<MonitoringPage />} />
-          <Route path='/resource' element={<ResourcePage />} />
-          <Route path='/account' element={<AccountPage />} />
-        </Routes>
-      </Router>
-    </ThemeProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Routes>
+            <Route path='/login' element={<LoginPage />} />
+            <Route path='/register' element={<RegisterPage />} />
+            <Route element={<AuthProtected />}>
+              <Route path='/' element={<MainPage />} />
+              <Route path='/company' element={<CompanyPage />} />
+              <Route path='/tasks' element={<TasksPage />} />
+              <Route path='/userManagement' element={<UserManagementPage />} />
+              <Route
+                path='/companyManagement'
+                element={<CompanyManagementPage />}
+              />
+              <Route path='/monitoringSetting' element={<MonitoringPage />} />
+              <Route path='/resource' element={<ResourcePage />} />
+              <Route path='/account' element={<AccountPage />} />
+            </Route>
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </Provider>
   );
 }
 
