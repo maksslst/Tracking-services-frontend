@@ -139,7 +139,7 @@ export default function CompanyManagementPage() {
                       ),
                     }}
                   >
-                    {isCreating ? 'Addendum...' : 'Add company'}
+                    {isCreating ? 'Creating...' : 'Add company'}
                   </Button>
                 </Stack>
               </Form>

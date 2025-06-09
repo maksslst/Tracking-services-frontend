@@ -35,7 +35,7 @@ export default function LoginPage() {
         const result = await login(values);
         if (result.error) throw result.error;
       } catch (err) {
-        //
+        console.log(err);
       }
     },
     [login]

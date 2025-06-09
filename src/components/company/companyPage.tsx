@@ -57,7 +57,7 @@ export default function CompanyPage() {
     { field: 'firstName', headerName: 'FirstName', width: 150 },
     { field: 'lastName', headerName: 'LastName', width: 150 },
     { field: 'patronymic', headerName: 'Patronymic', width: 150 },
-    { field: 'role', headerName: 'Patronymic', width: 120 },
+    { field: 'role', headerName: 'Role', width: 120 },
     { field: 'email', headerName: 'Email', width: 200 },
   ];
 
