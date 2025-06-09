@@ -17,11 +17,13 @@ import * as yup from 'yup';
 import Sidebar from '../sidebar/sidebar';
 import { useTheme } from '@mui/material/styles';
 import { Roles } from '../../api/enums/role';
-import { UserDto, UpdateUserRequest } from '../../api/userApiSlice';
 import {
-  useUserInfoQuery,
+  UserDto,
+  UpdateUserRequest,
   useUpdateUserMutation,
+  useUserInfoQuery,
 } from '../../api/userApiSlice';
+import { useLogoutMutation } from '../../api/authApiSlice';
 
 const validationSchema = yup.object({
   username: yup.string().required('Username is required'),
@@ -60,6 +62,7 @@ export default function AccountPage() {
   const [alertSeverity, setAlertSeverity] = useState<'success' | 'error'>(
     'success'
   );
+  const [logout] = useLogoutMutation();
 
   const getInitials = (user: UserDto | undefined) => {
     if (!user) return 'А';
@@ -75,7 +78,15 @@ export default function AccountPage() {
     if (newType !== null) setAvatarType(newType);
   };
 
-  const handleLogout = () => navigate('/login');
+  const handleLogout = async () => {
+    try {
+      await logout(undefined).unwrap();
+    } catch (e) {
+      console.error(e);
+    } finally {
+      navigate('/login');
+    }
+  };
 
   const getChangedFields = (
     values: FormValues,
@@ -234,8 +245,8 @@ export default function AccountPage() {
                 />
                 <Field
                   as={TextField}
-                  name='firstname'
-                  label='First Name'
+                  name='lastName'
+                  label='Last Name'
                   size='small'
                   fullWidth
                   error={touched.lastName && !!errors.lastName}

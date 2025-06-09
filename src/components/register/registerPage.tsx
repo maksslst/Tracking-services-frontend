@@ -44,15 +44,10 @@ export default function RegisterPage() {
   const handleSubmit = useCallback(
     async (values: RegisterRequest) => {
       try {
-        const result = await register(values);
-        if (result.error) {
-          throw result.error;
-        }
-        if (result.data) {
-          navigate('/login');
-        }
+        const date = await register(values).unwrap();
+        navigate('/login');
       } catch (err) {
-        //
+        console.error(err);
       }
     },
     [register, navigate]

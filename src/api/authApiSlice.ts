@@ -5,10 +5,6 @@ export type LoginRequest = {
   password: string;
 };
 
-export type LoginResponse = {
-  token: string;
-};
-
 export type RegisterRequest = {
   username: string;
   firstName: string;
@@ -19,11 +15,9 @@ export type RegisterRequest = {
   passwordConfirmation: string;
 };
 
-export type RegisterResponse = any;
-
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    login: builder.mutation<LoginResponse, LoginRequest>({
+    login: builder.mutation<void, LoginRequest>({
       query: (args) => ({
         url: '/Auth/login',
         method: 'POST',
@@ -31,17 +25,14 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(arg, { queryFulfilled }) {
         try {
-          const { data } = await queryFulfilled;
-          if (data.token) {
-            localStorage.setItem('auth_token', data.token);
-          }
+          await queryFulfilled;
         } catch (error) {
           console.error(error);
         }
       },
       invalidatesTags: ['User'],
     }),
-    register: builder.mutation<RegisterResponse, RegisterRequest>({
+    register: builder.mutation<void, RegisterRequest>({
       query: (args) => ({
         url: '/Auth/register',
         method: 'POST',
@@ -49,7 +40,15 @@ export const authApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ['User'],
     }),
+    logout: builder.mutation<void, void>({
+      query: () => ({
+        url: '/Auth/logout',
+        method: 'POST',
+      }),
+      invalidatesTags: ['User'],
+    }),
   }),
 });
 
-export const { useLoginMutation, useRegisterMutation } = authApiSlice;
+export const { useLoginMutation, useRegisterMutation, useLogoutMutation } =
+  authApiSlice;
